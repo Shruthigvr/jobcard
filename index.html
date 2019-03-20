@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>
+Login page
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css\main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<div class="main-contaniner">
+		<h1 class="heading">Login Page</h1>
+		<div class="sub-contaniner">
+		<!-- Login form -->
+		<form name="login">
+			<p><input type="email" placeholder="Username" name="user" id="user" /></p>
+			<p><input type="password" placeholder="Password" name="pass" id="pass"/></p>
+			<p><input type="button" onclick="btnclick()" value="Login" id="Login"/>
+			&emsp;&emsp;&emsp;
+			<input type="reset" value="Cancel"/></p>
+		</form>
+	</div>
+	<script language="javascript">
+		//User Login function
+		function btnclick(){
+		var username=document.getElementById("user").value;
+		var password=document.getElementById("pass").value;
+		var url="http://cvhunt.com/API/userLogin";
+		var data={email:username,password:password}
+		fetch(url, {
+    	method: 'POST',
+    	body: JSON.stringify(data),
+    	headers: {
+			"Content-type": "application/json"
+    		}
+   		})
+  		.then(res=>res.json())
+  		.then(response=>
+  			{
+  				localStorage.setItem("token",response.details.token);
+
+  				window.location.href= "home.html";
+  			})
+  		//.then(window.location.href= "home.html")
+  		.catch(error=>alert("Enter a valid username and password"));
+  		
+		}
+  	</script>
+</body>
+</html>

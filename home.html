@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Job Listing Site!</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css\style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+	</script>
+</head>
+<body>
+	<div class="main">
+		<br>
+		<div id="listdiv">
+		</div>
+	</div>
+	<script>
+		var apidata;
+		//Display recent jobs
+		$(document).ready(function(){
+    		$.get("http://cvhunt.com/API/listRecentJobs", function(data){
+     			apidata=data.details;
+      			var divContent = "";
+				// Function to display job card
+				for(var i = 0 ; i< apidata.length; i++){
+	 				divContent = divContent +
+	 				'<div class="jobcard"   id="jobcard' + i + '">\
+	 				<div>\
+	 					<h5>Job ID : ' + apidata[i]["job_id"] + '</h5>\
+	 				</div>\
+	 				<div>\
+	 					<h5>Posted by : ' + apidata[i]["posted_by"] + '</h5>\
+	 				</div>\
+	 				<div>\
+	 					<h5>Job Title : ' + apidata[i]["job_title"] + '</h5>\
+	 				</div>\
+	 				<div>\
+	 					<h5>Posted on : ' + apidata[i]["posted_on"] + '</h5>\
+	 				</div>\
+	 				<div>\
+	 					<h5>Posted on : ' + apidata[i]["posted_on"] + '</h5>\
+	 				</div>\
+	 			</div>';
+	 			}
+	 			document.getElementById('listdiv').innerHTML = divContent;
+    		});
+  		});
+</script>
+</body>
+</html>
